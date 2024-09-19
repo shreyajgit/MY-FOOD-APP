@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --shadow-color {
+  syntax: "<color>";
+  initial-value: rgba(255, 105, 180, 0.3);
+  inherits: false;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px var(--shadow-color), 
+              0 12px 16px var(--shadow-color); 
+  animation: shadowMove 3s linear infinite;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  border: 5px solid transparent; 
+  border-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545) 1;
+  z-index: -1;
+  animation: spin 2s linear infinite;
+}
+
+.card img {
+  z-index: 1;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes shadowMove {
+  0% {
+    --shadow-color: rgba(255, 69, 69, 0.3); /* #ff4545 */
+  }
+  25% {
+    --shadow-color: rgba(0, 255, 153, 0.3); /* #00ff99 */
+  }
+  50% {
+    --shadow-color: rgba(0, 106, 255, 0.3); /* #006aff */
+  }
+  75% {
+    --shadow-color: rgba(255, 0, 149, 0.3); /* #ff0095 */
+  }
+  100% {
+    --shadow-color: rgba(255, 69, 69, 0.3); /* #ff4545 */
+  }
+}
